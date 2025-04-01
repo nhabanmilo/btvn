@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trò chơi đố vui</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { max-width: 600px; margin: auto; }
+        .question { font-size: 20px; margin-bottom: 15px; }
+        .options button { display: block; width: 100%; padding: 10px; margin: 5px 0; }
+        .hint { color: red; font-style: italic; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Trò chơi đố vui</h2>
+        <div id="quiz">
+            <p id="question" class="question"></p>
+            <div id="options" class="options"></div>
+            <p id="hint" class="hint"></p>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Ai là người sáng lập ra Microsoft?",
+                options: ["Steve Jobs", "Elon Musk", "Bill Gates", "Mark Zuckerberg"],
+                answer: "Bill Gates",
+                hint: "Người này là một trong những tỷ phú giàu nhất thế giới."
+            },
+            {
+                question: "Nguyên tố hóa học nào có ký hiệu O?",
+                options: ["Oxi", "Vàng", "Bạc", "Natri"],
+                answer: "Oxi",
+                hint: "Nguyên tố này cần thiết cho sự hô hấp."
+            },
+            {
+                question: "Bộ phim hoạt hình nào có nhân vật chính là một chú chuột tên Mickey?",
+                options: ["Tom & Jerry", "Mickey Mouse", "Doraemon", "Pokemon"],
+                answer: "Mickey Mouse",
+                hint: "Đây là nhân vật biểu tượng của Disney."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function loadQuestion() {
+            const quiz = document.getElementById("quiz");
+            const questionElement = document.getElementById("question");
+            const optionsElement = document.getElementById("options");
+            const hintElement = document.getElementById("hint");
+
+            hintElement.textContent = "";
+            const questionData = questions[currentQuestionIndex];
+            questionElement.textContent = questionData.question;
+            optionsElement.innerHTML = "";
+
+            questionData.options.forEach(option => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option);
+                optionsElement.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedOption) {
+            const hintElement = document.getElementById("hint");
+            const questionData = questions[currentQuestionIndex];
+            if (selectedOption === questionData.answer) {
+                alert("Chính xác!");
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    loadQuestion();
+                } else {
+                    alert("Bạn đã hoàn thành trò chơi!");
+                    location.reload();
+                }
+            } else {
+                hintElement.textContent = "Gợi ý: " + questionData.hint;
+            }
+        }
+
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>

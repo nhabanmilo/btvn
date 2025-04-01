@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách sản phẩm</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 600px; margin: auto; }
+        ul { list-style-type: none; padding: 0; }
+        li { padding: 10px; border-bottom: 1px solid #ddd; cursor: pointer; }
+        li:hover { background-color: #f0f0f0; }
+        .details { margin-top: 20px; padding: 10px; border: 1px solid #ddd; display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Danh sách sản phẩm</h2>
+        <ul id="productList"></ul>
+        <div id="productDetails" class="details"></div>
+    </div>
+
+    <script>
+        const products = [
+            { id: 1, name: "Bàn phím cơ", price: "1,500,000 VND", description: "Bàn phím cơ cao cấp với đèn LED RGB." },
+            { id: 2, name: "Chuột gaming", price: "800,000 VND", description: "Chuột chơi game có độ nhạy cao và thiết kế công thái học." },
+            { id: 3, name: "Màn hình 24 inch", price: "3,500,000 VND", description: "Màn hình độ phân giải Full HD với tần số quét 144Hz." }
+        ];
+
+        function displayProducts() {
+            const productList = document.getElementById("productList");
+            products.forEach(product => {
+                const li = document.createElement("li");
+                li.textContent = product.name;
+                li.onclick = () => showDetails(product);
+                productList.appendChild(li);
+            });
+        }
+
+        function showDetails(product) {
+            const detailsDiv = document.getElementById("productDetails");
+            detailsDiv.innerHTML = `<h3>${product.name}</h3><p><strong>Giá:</strong> ${product.price}</p><p>${product.description}</p>`;
+            detailsDiv.style.display = "block";
+        }
+
+        window.onload = displayProducts;
+    </script>
+</body>
+</html>
